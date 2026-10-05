@@ -45,7 +45,6 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-static uint32_t imu_last_tick = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -91,8 +90,6 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
-  imu_init(IMU_GYRO_BIAS_OFFLINE);
-  imu_last_tick = HAL_GetTick();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -111,11 +108,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    uint32_t now = HAL_GetTick();
-    float dt = (now - imu_last_tick) / 1000.0f;
-    imu_last_tick = now;
-    imu_update(dt);
-    HAL_Delay(10);
+    HAL_Delay(1);
   }
   /* USER CODE END 3 */
 }

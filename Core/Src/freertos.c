@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "imu_interface.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,7 +74,7 @@ const osThreadAttr_t controlTask_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void *argument);
+void StartimuTask(void *argument);
 void StartmotorTask(void *argument);
 void StartcontrolTask(void *argument);
 
@@ -108,7 +108,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of imuTask */
-  imuTaskHandle = osThreadNew(StartDefaultTask, NULL, &imuTask_attributes);
+  imuTaskHandle = osThreadNew(StartimuTask, NULL, &imuTask_attributes);
 
   /* creation of motorTask */
   motorTaskHandle = osThreadNew(StartmotorTask, NULL, &motorTask_attributes);
@@ -126,22 +126,25 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_StartDefaultTask */
+/* USER CODE BEGIN Header_StartimuTask */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Function implementing the imuTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
+/* USER CODE END Header_StartimuTask */
+void StartimuTask(void *argument)
 {
-  /* USER CODE BEGIN StartDefaultTask */
+  /* USER CODE BEGIN StartimuTask */
+  imu_init(IMU_GYRO_BIAS_OFFLINE);
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    float dt = 0.01f;
+    imu_update(dt);
+    osDelay(10);
   }
-  /* USER CODE END StartDefaultTask */
+  /* USER CODE END StartimuTask */
 }
 
 /* USER CODE BEGIN Header_StartmotorTask */
