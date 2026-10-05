@@ -34,7 +34,13 @@ enable_language(C ASM)
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME}
         user/Src/mpu6050.cpp
-        user/Inc/mpu6050.h)
+        user/Inc/mpu6050.h
+        user/Inc/vector3.h
+        user/Inc/quaternion.h
+        user/Inc/imu.h
+        user/Src/imu.cpp
+        user/Inc/imu_interface.h
+        user/Src/imu_interface.cpp)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
@@ -52,6 +58,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    user/Inc
 )
 
 # Add project symbols (macros)
