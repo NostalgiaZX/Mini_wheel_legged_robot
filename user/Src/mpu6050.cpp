@@ -4,6 +4,7 @@
 
 int16_t accel[3];
 int16_t gyro[3];
+ReadingState mpu6050_reading_state=Idle;
 uint8_t mpu6050_check() {
     uint8_t id = 0x00;
     HAL_I2C_Mem_Read(&hi2c2,MPU6050_ADDRESS,MPU6050_WHO_AM_I,I2C_MEMADD_SIZE_8BIT,&id,1,100);
@@ -49,4 +50,21 @@ void mpu6050_read() {
     HAL_I2C_Mem_Read(&hi2c2,MPU6050_ADDRESS,MPU6050_GYRO_ZOUT_H,I2C_MEMADD_SIZE_8BIT,&datah,1,100);
     HAL_I2C_Mem_Read(&hi2c2,MPU6050_ADDRESS,MPU6050_GYRO_ZOUT_L,I2C_MEMADD_SIZE_8BIT,&datal,1,100);
     gyro[2]=(datah<<8)|datal;
+}
+void mpu6050_read_startdma() {
+    if (mpu6050_reading_state == Idle) {
+        mpu6050_reading_state = Accel;
+        HAL_I2C_Mem_Read_DMA(&hi2c2,MPU6050_ADDRESS,MPU6050_ACCEL_XOUT_H,I2C_MEMADD_SIZE_8BIT,(uint8_t*)accel,6);
+    }
+}
+void reverseint16array(int16_t* array,uint8_t num) {
+    uint8_t* datah;
+    uint8_t* datal;
+    for (uint8_t i=0;i<num;i++) {
+        datah=(uint8_t*)&array[i];
+        datal=datah+1;
+        uint8_t temp=*datah;
+        *datah=*datal;
+        *datal=temp;
+    }
 }

@@ -51,8 +51,12 @@ Vector3 IMU::readAccelG() {
 }
 
 void IMU::update(float dt) {
-    mpu6050_read();
-
+    //mpu6050_read();
+    if (!data_ready) {
+        return;
+    }
+    data_ready = false;
+    read_start();
     Vector3 omega = readGyroRadPerSec() - gyroBias_;
     Vector3 a = readAccelG();
 
@@ -75,4 +79,7 @@ void IMU::update(float dt) {
     eulerDeg_.roll  = eulerRad_.roll  * RAD2DEG;
     eulerDeg_.pitch = eulerRad_.pitch * RAD2DEG;
     eulerDeg_.yaw   = eulerRad_.yaw   * RAD2DEG;
+}
+void IMU::read_start() {
+    mpu6050_read_startdma();
 }

@@ -15,6 +15,7 @@ enum class GyroBiasMode {
 class IMU {
 public:
     explicit IMU(float kp = 2.0f);
+    bool data_ready=false;
     void init(GyroBiasMode mode = GyroBiasMode::kCalibrateOnBoot, uint32_t calibSamples = 1000);
 
     void update(float dt);
@@ -39,7 +40,7 @@ private:
     static Vector3 readGyroRadPerSec();
     static Vector3 readAccelG();
     void calibrateGyro(uint32_t samples);
-
+    void read_start();
     static const Vector3 kOfflineGyroBiasRad;
 };
 

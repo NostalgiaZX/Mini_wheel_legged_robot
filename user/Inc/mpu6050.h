@@ -3,10 +3,19 @@
 #define MINI_WHEEL_LEGGED_ROBOT_MPU6050_H
 #include "main.h"
 
+enum ReadingState {
+    Idle,
+    Accel,
+    Gyro,
+    Temp
+};
 extern int16_t accel[3];
 extern int16_t gyro[3];
+extern ReadingState mpu6050_reading_state;
 void mpu6050_init(void);
 void mpu6050_read();
+void mpu6050_read_startdma();
+void reverseint16array(int16_t* array,uint8_t num);
 uint8_t mpu6050_check(void);
 #define MPU6050_ADDRESS		0xD0
 #define MPU6050_ID			0x68

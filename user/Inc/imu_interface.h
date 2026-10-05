@@ -2,11 +2,12 @@
 #ifndef MINI_WHEEL_LEGGED_ROBOT_IMU_INTERFACE_H
 #define MINI_WHEEL_LEGGED_ROBOT_IMU_INTERFACE_H
 
+#include "imu.h"
 typedef enum {
     IMU_GYRO_BIAS_CALIBRATE_ON_BOOT = 0,
     IMU_GYRO_BIAS_OFFLINE = 1
 } imu_gyro_bias_mode_t;
-
+extern IMU body_imu;
 #ifdef __cplusplus
 extern "C" {
 #endif
