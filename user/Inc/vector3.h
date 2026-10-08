@@ -2,7 +2,7 @@
 #ifndef MINI_WHEEL_LEGGED_ROBOT_VECTOR3_H
 #define MINI_WHEEL_LEGGED_ROBOT_VECTOR3_H
 
-#include <cmath>
+#include <math.h>
 
 struct Vector3 {
     float x, y, z;

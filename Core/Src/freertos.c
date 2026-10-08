@@ -160,7 +160,7 @@ void StartmotorTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(10);
   }
   /* USER CODE END StartmotorTask */
 }
@@ -178,7 +178,7 @@ void StartcontrolTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(5);
   }
   /* USER CODE END StartcontrolTask */
 }

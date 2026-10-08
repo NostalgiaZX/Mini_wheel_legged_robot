@@ -54,7 +54,9 @@ void mpu6050_read() {
 void mpu6050_read_startdma() {
     if (mpu6050_reading_state == Idle) {
         mpu6050_reading_state = Accel;
-        HAL_I2C_Mem_Read_DMA(&hi2c2,MPU6050_ADDRESS,MPU6050_ACCEL_XOUT_H,I2C_MEMADD_SIZE_8BIT,(uint8_t*)accel,6);
+        if (HAL_I2C_Mem_Read_DMA(&hi2c2,MPU6050_ADDRESS,MPU6050_ACCEL_XOUT_H,I2C_MEMADD_SIZE_8BIT,(uint8_t*)accel,6) != HAL_OK) {
+            mpu6050_reading_state = Idle;
+        }
     }
 }
 void reverseint16array(int16_t* array,uint8_t num) {

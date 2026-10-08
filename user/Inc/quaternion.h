@@ -2,7 +2,7 @@
 #ifndef MINI_WHEEL_LEGGED_ROBOT_QUATERNION_H
 #define MINI_WHEEL_LEGGED_ROBOT_QUATERNION_H
 
-#include <cmath>
+#include <math.h>
 #include "vector3.h"
 
 struct EulerAngles {

@@ -2,7 +2,7 @@
 #ifndef MINI_WHEEL_LEGGED_ROBOT_IMU_H
 #define MINI_WHEEL_LEGGED_ROBOT_IMU_H
 
-#include <cstdint>
+#include <stdint.h>
 
 #include "quaternion.h"
 #include "vector3.h"
@@ -29,6 +29,7 @@ public:
 
     void setKp(float kp) { kp_ = kp; }
     float kp() const { return kp_; }
+    void read_start();
 
 private:
     Quaternion q_;
@@ -40,7 +41,6 @@ private:
     static Vector3 readGyroRadPerSec();
     static Vector3 readAccelG();
     void calibrateGyro(uint32_t samples);
-    void read_start();
     static const Vector3 kOfflineGyroBiasRad;
 };
 

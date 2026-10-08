@@ -9,6 +9,7 @@ void imu_init(imu_gyro_bias_mode_t mode) {
 
     GyroBiasMode m = (mode == IMU_GYRO_BIAS_OFFLINE) ? GyroBiasMode::kOffline : GyroBiasMode::kCalibrateOnBoot;
     body_imu.init(m);
+    body_imu.read_start();
 }
 
 void imu_update(float dt) {
