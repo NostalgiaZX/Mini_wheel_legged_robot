@@ -1,7 +1,7 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * File Name          : freertos.c
+  * File Name          : robot.cpp
   * Description        : Code for freertos applications
   ******************************************************************************
   * @attention
@@ -26,6 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "imu_interface.h"
+#include "st3215.h"
+#include "servo.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -78,14 +80,14 @@ void StartimuTask(void *argument);
 void StartmotorTask(void *argument);
 void StartcontrolTask(void *argument);
 
-void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+extern "C" void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
   * @brief  FreeRTOS initialization
   * @param  None
   * @retval None
   */
-void MX_FREERTOS_Init(void) {
+extern "C" void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -160,6 +162,9 @@ void StartmotorTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
+    applyintensity();
+    addchecksum();
+    transmitdata();
     osDelay(10);
   }
   /* USER CODE END StartmotorTask */
@@ -187,4 +192,3 @@ void StartcontrolTask(void *argument)
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
-

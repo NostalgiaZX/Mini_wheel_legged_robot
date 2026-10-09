@@ -42,7 +42,12 @@ add_executable(${CMAKE_PROJECT_NAME}
         user/Inc/imu_interface.h
         user/Src/imu_interface.cpp
         Core/Src/callbacks.cpp
-        Core/Inc/callbacks.h)
+        Core/Inc/callbacks.h
+        user/Src/st3215.cpp
+        user/Inc/st3215.h
+        user/Src/servo.cpp
+        user/Inc/servo.h
+        Core/Src/robot.cpp)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
