@@ -27,3 +27,8 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
         mpu6050_read_startdma();
     }
 }
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+}
