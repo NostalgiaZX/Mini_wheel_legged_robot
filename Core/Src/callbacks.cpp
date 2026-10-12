@@ -2,8 +2,12 @@
 #include  "mpu6050.h"
 #include "callbacks.h"
 #include "i2c.h"
+#include "usart.h"
+#include "st3215.h"
+uint8_t count=0;
 void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
+    count++;
     if (hi2c->Instance == hi2c2.Instance) {
         if (mpu6050_reading_state == Accel) {
             mpu6050_reading_state = Gyro;
@@ -30,5 +34,16 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+    if (huart->Instance == USART1) {
+        st3215_on_byte_received(ptrread);
+        HAL_UART_Receive_IT(&huart1,&ptrread,1);
+    }
+}
 
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART1) {
+        servos_read_timeout();
+        HAL_UART_Receive_IT(&huart1,&ptrread,1);
+    }
 }

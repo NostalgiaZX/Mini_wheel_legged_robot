@@ -145,7 +145,7 @@ void StartimuTask(void *argument)
   {
     float dt = 0.01f;
     body_imu.update(dt);
-    osDelay(4);
+    osDelay(1);
   }
   /* USER CODE END StartimuTask */
 }
@@ -160,13 +160,26 @@ void StartimuTask(void *argument)
 void StartmotorTask(void *argument)
 {
   /* USER CODE BEGIN StartmotorTask */
+  HAL_UART_Receive_IT(&huart1,&ptrread,1);
   /* Infinite loop */
   for(;;)
   {
     applyintensity();
     addchecksum();
-    transmitdata();
-    osDelay(4);
+    servos_writing();
+    servos_reading();
+
+    uint32_t wait_start = HAL_GetTick();
+    while (!servos_all_idle())
+    {
+      if (HAL_GetTick() - wait_start > SERVO_READ_TIMEOUT_MS)
+      {
+        servos_read_timeout();
+        break;
+      }
+      osDelay(1);
+    }
+    osDelay(1);
   }
   /* USER CODE END StartmotorTask */
 }
