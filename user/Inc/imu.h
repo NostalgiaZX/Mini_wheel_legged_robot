@@ -44,4 +44,6 @@ private:
     static const Vector3 kOfflineGyroBiasRad;
 };
 
+extern IMU body_imu;
+
 #endif //MINI_WHEEL_LEGGED_ROBOT_IMU_H

@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "imu_interface.h"
+#include "imu.h"
 #include "st3215.h"
 #include "servo.h"
 /* USER CODE END Includes */
@@ -138,13 +138,14 @@ extern "C" void MX_FREERTOS_Init(void) {
 void StartimuTask(void *argument)
 {
   /* USER CODE BEGIN StartimuTask */
-  imu_init(IMU_GYRO_BIAS_OFFLINE);
+  body_imu.init(GyroBiasMode::kOffline);
+  body_imu.read_start();
   /* Infinite loop */
   for(;;)
   {
     float dt = 0.01f;
-    imu_update(dt);
-    osDelay(10);
+    body_imu.update(dt);
+    osDelay(4);
   }
   /* USER CODE END StartimuTask */
 }
@@ -165,7 +166,7 @@ void StartmotorTask(void *argument)
     applyintensity();
     addchecksum();
     transmitdata();
-    osDelay(10);
+    osDelay(4);
   }
   /* USER CODE END StartmotorTask */
 }
@@ -183,7 +184,7 @@ void StartcontrolTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(5);
+    osDelay(4);
   }
   /* USER CODE END StartcontrolTask */
 }

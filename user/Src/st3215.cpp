@@ -1,6 +1,6 @@
 #include "../Inc/st3215.h"
-
-uint8_t data[datalen]={
+//sync write
+uint8_t data_write[datalen_write]={
     0xFF,0xFF,0XFE,0x16,0x83,0x2C,0x02,
     0x01,0x00,0x00,
     0x02,0x00,0x00,
@@ -10,19 +10,23 @@ uint8_t data[datalen]={
     0x06,0x00,0x00,
     0x00
 };
+//sync read
+uint8_t data_read[datalen_read]={
+    0xFF,0xFF,0xFE,0x0A,0x82,0x38,0x0F,0x01,0x02,0x03,0x04,0x05,0x06,0x04
+};
 void addchecksum()
 {
     uint16_t sum = 0;
-    for (uint16_t i = 2; i < datalen-1; i++)
+    for (uint16_t i = 2; i < datalen_write-1; i++)
     {
-        sum += data[i];
+        sum += data_write[i];
     }
-    data[datalen-1] = (uint8_t)(~sum);
+    data_write[datalen_write-1] = (uint8_t)(~sum);
 }
 void applyintensity() {
 
 }
 
 void transmitdata() {
-    HAL_UART_Transmit(&huart1,data,datalen,100);
+    HAL_UART_Transmit(&huart1,data_write,datalen_write,100);
 }

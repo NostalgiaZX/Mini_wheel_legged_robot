@@ -39,8 +39,6 @@ add_executable(${CMAKE_PROJECT_NAME}
         user/Inc/quaternion.h
         user/Inc/imu.h
         user/Src/imu.cpp
-        user/Inc/imu_interface.h
-        user/Src/imu_interface.cpp
         Core/Src/callbacks.cpp
         Core/Inc/callbacks.h
         user/Src/st3215.cpp

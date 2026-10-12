@@ -9,6 +9,8 @@ constexpr float RAD2DEG = 180.0f / 3.14159265358979323846f;
 
 const Vector3 IMU::kOfflineGyroBiasRad(-0.0454367623f, -0.0448727049f, 0.0323835537f);
 
+IMU body_imu;
+
 IMU::IMU(float kp) : kp_(kp) {}
 
 void IMU::init(GyroBiasMode mode, uint32_t calibSamples) {

@@ -943,11 +943,6 @@
               <FilePath>..\..\user\Src\imu.cpp</FilePath>
             </File>
             <File>
-              <FileName>imu_interface.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\user\Src\imu_interface.cpp</FilePath>
-            </File>
-            <File>
               <FileName>mpu6050.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\user\Src\mpu6050.cpp</FilePath>

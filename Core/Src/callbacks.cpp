@@ -1,4 +1,4 @@
-#include "../Inc/imu_interface.h"
+#include "../Inc/imu.h"
 #include  "mpu6050.h"
 #include "callbacks.h"
 #include "i2c.h"

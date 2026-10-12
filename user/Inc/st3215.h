@@ -3,8 +3,9 @@
 #define MINI_WHEEL_LEGGED_ROBOT_ST3215_H
 #include "main.h"
 #include  "usart.h"
-#define datalen 26
-extern uint8_t data[datalen];
+#define datalen_write 26
+#define datalen_read 26
+extern uint8_t data_write[datalen_write];
 #ifdef __cplusplus
 extern "C"{
 #endif
